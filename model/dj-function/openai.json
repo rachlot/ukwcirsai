@@ -1,0 +1,7 @@
+{
+    "ID": "openai",
+    "djClassName": "org.dashjoin.function.Credentials",
+    "username": "Authorization",
+    "password": "DJ1#\bEnNQhYmm6W4OlFkHl+rWY8PsdFV8vibIuL/ye9hSV+WKj5NgZ55din/XfENkX0CHbd2/RVzZ79H/6G8zZsYTShjItL8jv4c9",
+    "apiKey": true
+}
