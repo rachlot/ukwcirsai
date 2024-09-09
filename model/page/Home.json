@@ -4,52 +4,65 @@
         "widget": "page",
         "children": [
             {
+                "style": {
+                    "maxWidth": "800px",
+                    "margin": "0 auto",
+                    "padding": "20px",
+                    "borderRadius": "8px",
+                    "boxShadow": "0 4px 12px rgba(0, 0, 0, 0.1)",
+                    "backgroundColor": "#f9f9f9",
+                    "fontFamily": "'Roboto', sans-serif"
+                },
                 "widget": "container",
                 "children": [
                     {
-                        "html": "Beispiel\n<pre>gestern wurde einer achzigjährigen patientin in der augenklinik vesehentlich ein falsches antibiotika gegeben</pre>",
+                        "html": "<h1 style='font-size: 2.5em; font-weight: 700; color: #333;'>Vorfälle anonym berichten & helfen!</h1><p style='font-size: 1.1em; color: #555;'>Incidents, die in das CIRS (Critical Incidents Reporting System) eingetragen werden, sind <b>anonym</b> und können nicht mit der berichtenden Person in Verbindung gebracht werden.</p> ",
                         "widget": "html"
                     },
                     {
-                        "title": "Geben Sie Ihren Bericht ein",
+                        "html": "<p style='font-size: 1.1em; color: #555;'>Durch das Teilen des Vorfalles können zukünftige Fälle verhindert werden!</p>",
+                        "widget": "html"
+                    },
+                    {
                         "text": "Analysieren",
-                        "expression": "{\n  \"bericht\": variable.bericht\n}",
-                        "print": "(\n\n$x := $curl(\"POST\", \"https://api.openai.com/v1/chat/completions\", {\n    \"model\": \"gpt-4o-mini\",\n    \"response_format\": { \"type\": \"json_object\" },\n    \"messages\": [\n      {\n        \"role\": \"system\",\n        \"content\": \"Deine Aufgabe ist es, einen Bericht in ein JSON Objekt zu übersetzen. Nutze dazu lediglich die Informationen der Eingabe. Fehlt eine Information in der Eingabe, nutze den Wert 'unbekannt'. Füge die folgenden felder hinzu:\\n\\n\" &\n          \"Zuständiges Fachgebiet\\n\" &\n          \"Altersgruppe des Patienten\\n\" &\n          \"Geschlecht des Patienten\\n\" &\n          \"Wo ist das Ereignis passiert\\n\" &\n          \"Welche Versorgungsart\\n\" &\n          \"In welchem Kontext fand das Ereignis statt\\n\" &\n          \"Was ist passiert\\n\" &\n          \"Was war das Ergebnis\\n\" &\n          \"Wo sehen Sie Gründe für dieses Ereignis und wie hätte es vermieden werden können\\n\" &\n          \"Kam der Patient zu Schaden\\n\" &\n          \"Welche Faktoren trugen zu dem Ereignis bei\\n\" &\n          \"Wie häufig tritt dieses Ereignis ungefähr auf\\n\" &\n          \"Wer berichtet\\n\" &\n          \"Zusätzliche Bemerkungen\\n\"\n      },\n      {\n        \"role\": \"user\",\n        \"content\": form.bericht\n      }\n    ]\n }, {\"Authorization\": \"openai\"}).choices[0].message.content;\n\n$setVariable(\"cirs\", $parseJson($x));\n$setVariable(\"bericht\", form.bericht);\n$refresh()\n\n)",
+                        "expression": "{\n  \"Bericht\": variable.bericht\n}",
+                        "print": "(\n\n$x := $curl(\"POST\", \"https://api.openai.com/v1/chat/completions\", {\n    \"model\": \"gpt-4o-mini\",\n    \"messages\": [\n      {\n        \"role\": \"system\",\n        \"content\": \"Deine Aufgabe ist es, den folgenden Bericht zu anonymisieren und die relevanten Felder zu extrahieren. Nutze dazu die Informationen der Eingabe. Fehlt eine Information in der Eingabe, nutze den Wert 'unbekannt'. Füge die folgenden Felder hinzu:\\n\\n\" &\n          \"Zuständiges Fachgebiet: \" & (form.ZuständigesFachgebiet ? form.ZuständigesFachgebiet : 'unbekannt') & \"\\n\" &\n          \"Altersgruppe des Patienten: \" & (form.AltersgruppeDesPatienten ? form.AltersgruppeDesPatienten : 'unbekannt') & \"\\n\" &\n          \"Wo ist das Ereignis passiert: \" & (form.WoIstDasEreignisPassiert ? form.WoIstDasEreignisPassiert : 'unbekannt') & \"\\n\" &\n          \"Welche Versorgungsart: \" & (form.WelcheVersorgungsart ? form.WelcheVersorgungsart : 'unbekannt') & \"\\n\" &\n          \"ASA-Klassifizierung: \" & (form.ASAKlassifizierung ? form.ASAKlassifizierung : 'unbekannt') & \"\\n\" &\n          \"Patientenzustand: \" & (form.Patientenzustand ? form.Patientenzustand : 'unbekannt') & \"\\n\" &\n          \"Wichtige Begleitumstände: \" & (form.WichtigeBegleitumstaende ? form.WichtigeBegleitumstaende : 'unbekannt') & \"\\n\" &\n          \"War ein Medizinprodukt beteiligt: \" & (form.WarEinMedizinproduktBeteiligt ? form.WarEinMedizinproduktBeteiligt : 'unbekannt') & \"\\n\" &\n          \"Fallbeschreibung: \" & form.Fallbeschreibung & \"\\n\" &\n          \"Was war besonders gut: \" & form.WasWarBesondersGut & \"\\n\" &\n          \"Was war besonders ungünstig: \" & form.WasWarBesondersUnguenstig & \"\\n\" &\n          \"Eigener Ratschlag (take-home-message): \" & form.EigenerRatschlag & \"\\n\" &\n          \"Wie häufig tritt ein Ereignis dieser Art auf: \" & form.WieHaeufigTrittEreignisAuf & \"\\n\" &\n          \"Wer berichtet: \" & form.WerBerichtet & \"\\n\" &\n          \"Ihre Berufserfahrung: \" & form.IhreBerufserfahrung\n      },\n      {\n        \"role\": \"user\",\n        \"content\": form.bericht\n      }\n    ]\n }, {\"Authorization\": variable.openaiAuthorization}).choices[0].message.content;\n\n$setVariable(\"cirs\", $parseJson($x));\n$setVariable(\"bericht\", form.bericht);\n$refresh()\n\n)",
                         "widget": "button",
                         "schema": {
                             "type": "object",
                             "properties": {
-                                "bericht": {
+                                "Bericht": {
                                     "widget": "textarea",
                                     "style": {
-                                        "width": "800px"
-                                    }
+                                        "width": "1200px"
+                                    },
+                                    "required": false
                                 }
+                            }
+                        }
+                    },
+                    {
+                        "display": "variable.cirs",
+                        "title": "CIRS Struktur",
+                        "widget": "display",
+                        "size": 6
+                    },
+                    {
+                        "text": "Speichern",
+                        "expression": "variable.cirs",
+                        "print": "form",
+                        "title": "Vorschau",
+                        "widget": "button",
+                        "size": 6,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "Zuständiges Fachgebiet": {},
+                                "Altersgruppe des Patienten": {}
                             }
                         }
                     }
                 ]
-            },
-            {
-                "display": "variable.cirs",
-                "title": "CIRS Struktur",
-                "widget": "display",
-                "size": 6
-            },
-            {
-                "text": "Speichern",
-                "expression": "variable.cirs",
-                "print": "form",
-                "title": "Vorschau",
-                "widget": "button",
-                "size": 6,
-                "schema": {
-                    "type": "object",
-                    "properties": {
-                        "Zuständiges Fachgebiet": {},
-                        "Altersgruppe des Patienten": {}
-                    }
-                }
             }
         ]
     }
