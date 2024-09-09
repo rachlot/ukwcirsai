@@ -1,0 +1,24 @@
+{
+    "ID": "Auswertung",
+    "layout": {
+        "widget": "page",
+        "children": [
+            {
+                "title": "Patientenzustände",
+                "query": "byPatientenZustand",
+                "database": "postgres",
+                "chart": "doughnut",
+                "widget": "chart",
+                "size": 6
+            },
+            {
+                "title": "Fachgebiet",
+                "query": "byFachgebiet",
+                "database": "postgres",
+                "chart": "doughnut",
+                "widget": "chart",
+                "size": 6
+            }
+        ]
+    }
+}

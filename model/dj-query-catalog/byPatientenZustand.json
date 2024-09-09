@@ -1,0 +1,6 @@
+{
+    "ID": "byPatientenZustand",
+    "database": "dj/postgres",
+    "query-pointer": "0.sql",
+    "type": "read"
+}
