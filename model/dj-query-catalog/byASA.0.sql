@@ -1,6 +1,6 @@
 SELECT
-  "ASA-Klassifizierung", COUNT("id") AS count
+  "Ereignis"."ASA-Klassifizierung", COUNT("Ereignis"."id")
 FROM
   "Ereignis"
 GROUP BY
-  "ASA-Klassifizierung";
+   "Ereignis"."ASA-Klassifizierung"
