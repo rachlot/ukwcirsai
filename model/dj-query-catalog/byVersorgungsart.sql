@@ -1,6 +1,6 @@
 SELECT
-  "Welche Versorgungsart", COUNT("id") AS count
+  "Ereignis"."Versorgungsart", COUNT("Ereignis"."id")
 FROM
   "Ereignis"
 GROUP BY
-  "Welche Versorgungsart";
+   "Ereignis"."Versorgungsart"
