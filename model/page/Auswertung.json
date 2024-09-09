@@ -18,6 +18,22 @@
                 "chart": "doughnut",
                 "widget": "chart",
                 "size": 6
+            },
+            {
+                "title": "ASA-Klassifizierung",
+                "query": "byASA",
+                "database": "postgres",
+                "chart": "doughnut",
+                "widget": "chart",
+                "size": 6
+            },
+            {
+                "title": "Versorgungsart",
+                "query": "byVersorgungsart",
+                "database": "postgres",
+                "chart": "doughnut",
+                "widget": "chart",
+                "size": 6
             }
         ]
     }
