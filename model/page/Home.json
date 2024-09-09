@@ -43,18 +43,11 @@
                         }
                     },
                     {
-                        "display": "variable.cirs",
-                        "title": "CIRS Struktur",
-                        "widget": "display",
-                        "size": 6
-                    },
-                    {
                         "text": "Speichern",
                         "expression": "variable.cirs",
                         "print": "form",
                         "title": "Vorschau",
                         "widget": "button",
-                        "size": 6,
                         "schema": {
                             "type": "object",
                             "properties": {
@@ -62,6 +55,42 @@
 
                                 },
                                 "Altersgruppe des Patienten": {
+
+                                },
+                                "Wo ist das Ereignis passiert": {
+
+                                },
+                                "Welche Versorgungsart": {
+
+                                },
+                                "ASA-Klassifizierung": {
+
+                                },
+                                "Patientenzustand": {
+
+                                },
+                                "Wichtige Begleitumstände": {
+
+                                },
+                                "War ein Medizinprodukt beteiligt": {
+
+                                },
+                                "Fallbeschreibung": {
+
+                                },
+                                "Was war besonders gut": {
+
+                                },
+                                "Was war besonders ungünstig": {
+
+                                },
+                                "Eigener Ratschlag": {
+
+                                },
+                                "Wie häufig tritt ein Ereignis dieser Art auf": {
+
+                                },
+                                "Ihre Berufserfahrung": {
 
                                 }
                             }
