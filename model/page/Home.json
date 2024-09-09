@@ -45,7 +45,7 @@
                     {
                         "text": "Speichern",
                         "expression": "variable.cirs",
-                        "print": "form",
+                        "print": "$create(\"postgres\", \"Ereignis\", form)",
                         "title": "Vorschau",
                         "widget": "button",
                         "schema": {

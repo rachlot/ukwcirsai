@@ -1,0 +1,7 @@
+{
+    "ID": "createTable",
+    "type": "write",
+    "database": "dj/postgres",
+    "arguments": null,
+    "query-pointer": "0.sql"
+}
