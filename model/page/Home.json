@@ -1,5 +1,5 @@
 {
-    "ID": "CIRS",
+    "ID": "Home",
     "layout": {
         "widget": "page",
         "children": [
@@ -25,18 +25,19 @@
                     },
                     {
                         "text": "Analysieren",
-                        "expression": "{\n  \"Bericht\": variable.bericht\n}",
-                        "print": "(\n\n$x := $curl(\"POST\", \"https://api.openai.com/v1/chat/completions\", {\n    \"model\": \"gpt-4o-mini\",\n    \"messages\": [\n      {\n        \"role\": \"system\",\n        \"content\": \"Deine Aufgabe ist es, den folgenden Bericht zu anonymisieren und die relevanten Felder zu extrahieren. Nutze dazu die Informationen der Eingabe. Fehlt eine Information in der Eingabe, nutze den Wert 'unbekannt'. Füge die folgenden Felder hinzu:\\n\\n\" &\n          \"Zuständiges Fachgebiet: \" & (form.ZuständigesFachgebiet ? form.ZuständigesFachgebiet : 'unbekannt') & \"\\n\" &\n          \"Altersgruppe des Patienten: \" & (form.AltersgruppeDesPatienten ? form.AltersgruppeDesPatienten : 'unbekannt') & \"\\n\" &\n          \"Wo ist das Ereignis passiert: \" & (form.WoIstDasEreignisPassiert ? form.WoIstDasEreignisPassiert : 'unbekannt') & \"\\n\" &\n          \"Welche Versorgungsart: \" & (form.WelcheVersorgungsart ? form.WelcheVersorgungsart : 'unbekannt') & \"\\n\" &\n          \"ASA-Klassifizierung: \" & (form.ASAKlassifizierung ? form.ASAKlassifizierung : 'unbekannt') & \"\\n\" &\n          \"Patientenzustand: \" & (form.Patientenzustand ? form.Patientenzustand : 'unbekannt') & \"\\n\" &\n          \"Wichtige Begleitumstände: \" & (form.WichtigeBegleitumstaende ? form.WichtigeBegleitumstaende : 'unbekannt') & \"\\n\" &\n          \"War ein Medizinprodukt beteiligt: \" & (form.WarEinMedizinproduktBeteiligt ? form.WarEinMedizinproduktBeteiligt : 'unbekannt') & \"\\n\" &\n          \"Fallbeschreibung: \" & form.Fallbeschreibung & \"\\n\" &\n          \"Was war besonders gut: \" & form.WasWarBesondersGut & \"\\n\" &\n          \"Was war besonders ungünstig: \" & form.WasWarBesondersUnguenstig & \"\\n\" &\n          \"Eigener Ratschlag (take-home-message): \" & form.EigenerRatschlag & \"\\n\" &\n          \"Wie häufig tritt ein Ereignis dieser Art auf: \" & form.WieHaeufigTrittEreignisAuf & \"\\n\" &\n          \"Wer berichtet: \" & form.WerBerichtet & \"\\n\" &\n          \"Ihre Berufserfahrung: \" & form.IhreBerufserfahrung\n      },\n      {\n        \"role\": \"user\",\n        \"content\": form.bericht\n      }\n    ]\n }, {\"Authorization\": variable.openaiAuthorization}).choices[0].message.content;\n\n$setVariable(\"cirs\", $parseJson($x));\n$setVariable(\"bericht\", form.bericht);\n$refresh()\n\n)",
+                        "expression": "{\n  \"bericht\": variable.bericht\n}",
+                        "print": "(\n\n$x := $curl(\n  \"POST\", \n  \"https://api.openai.com/v1/chat/completions\",\n  {\n    \"model\": \"gpt-4o-mini\",\n    \"response_format\": { \"type\": \"json_object\" },\n    \"messages\": [\n      {\"role\": \"system\", \"content\": \"\n\nDeine Aufgabe ist es, den folgenden Bericht zu anonymisiere, die relevanten Felder zu extrahieren und in ein JSON Objekt zu übersetzen. Nutze dazu die Informationen der Eingabe. Fehlt eine Information in der Eingabe, nutze den Wert 'unbekannt'. Füge die folgenden Felder hinzu:\n\nZuständiges Fachgebiet\nAltersgruppe des Patienten\nWo ist das Ereignis passiert\nWelche Versorgungsart\nASA-Klassifizierung\nPatientenzustand\nWichtige Begleitumstände\nWar ein Medizinprodukt beteiligt\nFallbeschreibung\nWas war besonders gut\nWas war besonders ungünstig\nEigener Ratschlag\nWie häufig tritt ein Ereignis dieser Art auf\nIhre Berufserfahrung\n\n\"},\n      {\"role\": \"user\", \"content\": form.bericht}\n    ]\n  },\n  { \"Authorization\": \"openai\" }\n).choices[0].message.content;\n\n$setVariable(\"cirs\", $parseJson($x));\n$setVariable(\"bericht\", form.bericht);\n$refresh()\n\n)",
                         "widget": "button",
                         "schema": {
                             "type": "object",
                             "properties": {
-                                "Bericht": {
+                                "bericht": {
                                     "widget": "textarea",
                                     "style": {
                                         "width": "1200px"
                                     },
-                                    "required": false
+                                    "required": false,
+                                    "title": "Bericht"
                                 }
                             }
                         }
@@ -57,8 +58,12 @@
                         "schema": {
                             "type": "object",
                             "properties": {
-                                "Zuständiges Fachgebiet": {},
-                                "Altersgruppe des Patienten": {}
+                                "Zuständiges Fachgebiet": {
+
+                                },
+                                "Altersgruppe des Patienten": {
+
+                                }
                             }
                         }
                     }
