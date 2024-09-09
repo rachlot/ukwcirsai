@@ -1,5 +1,5 @@
 {
-    "ID": "byASA",
+    "ID": "byASA-Klassifizierung",
     "type": "read",
     "database": "dj/postgres",
     "arguments": null,
