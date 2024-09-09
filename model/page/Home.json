@@ -26,7 +26,7 @@
                     {
                         "text": "Analysieren",
                         "expression": "{\n  \"bericht\": variable.bericht\n}",
-                        "print": "(\n\n$x := $curl(\n  \"POST\", \n  \"https://api.openai.com/v1/chat/completions\",\n  {\n    \"model\": \"gpt-4o-mini\",\n    \"response_format\": { \"type\": \"json_object\" },\n    \"messages\": [\n      {\n        \"role\": \"system\", \n        \"content\": \"Deine Aufgabe ist es, den folgenden Bericht zu anonymisieren, die relevanten Felder zu extrahieren und in ein JSON-Objekt zu übersetzen. Nutze dazu die Informationen der Eingabe. Fehlt eine Information in der Eingabe, nutze den Wert 'unbekannt'. Ersetze alle Namen durch generische Begriffe wie 'Arzt', 'Patient' oder 'Pfleger', außer der Titel ist explizit (z.B. 'Dr.' oder 'Pfleger'). Extrahiere auch das beteiligte Medizinprodukt und frage den Benutzer nach einer passenden Zuordnung, wenn nötig. Extrahiere die folgenden Felder:\n\n- Zuständiges Fachgebiet\n- Altersgruppe des Patienten\n- Wo ist das Ereignis passiert\n- Welche Versorgungsart\n- ASA-Klassifizierung\n- Patientenzustand\n- Wichtige Begleitumstände\n- War ein Medizinprodukt beteiligt (wenn ja, nenne das Produkt)\n- Fallbeschreibung\n- Was war besonders gut\n- Was war besonders ungünstig\n- Eigener Ratschlag\n- Wie häufig tritt ein Ereignis dieser Art auf\n- Ihre Berufserfahrung\"\n      },\n      {\n        \"role\": \"user\", \n        \"content\": form.bericht\n      }\n    ]\n  },\n  { \"Authorization\": \"Bearer YOUR_OPENAI_API_KEY\" }\n);\n\ntry {\n  $xParsed := $parseJson($x);\n  \n  // Medizinprodukt-Details hinzufügen, falls vorhanden\n  if ($xParsed['War ein Medizinprodukt beteiligt'] === 'Ja') {\n    $xParsed['Medizinprodukt'] = form.Medizinprodukt;\n  }\n\n  // Nach Benutzerbegriff fragen, wenn kein Titel vorhanden\n  if (!$contains(form.bericht, ['Dr.', 'Pfleger', 'Schwester'])) {\n    $begriff := form.benutzerBegriff;\n    $xParsed['Name-Ersatz'] = $begriff;\n  }\n\n  $setVariable(\"cirs\", $xParsed);\n  $setVariable(\"anonymisierterBericht\", $xParsed);\n  $setVariable(\"bericht\", form.bericht);\n} catch (e) {\n  $log(\"Fehler bei der Verarbeitung des OpenAI-Ergebnisses: \" & e);\n}\n$refresh();\n\n)"
+                        "print": "(\n\n$x := $curl(\n  \"POST\", \n  \"https://api.openai.com/v1/chat/completions\",\n  {\n    \"model\": \"gpt-4o-mini\",\n    \"response_format\": { \"type\": \"json_object\" },\n    \"messages\": [\n      {\n        \"role\": \"system\", \n        \"content\": \"Deine Aufgabe ist es, den folgenden Bericht zu anonymisieren, die relevanten Felder zu extrahieren und in ein JSON-Objekt zu übersetzen. Fehlt eine Information in der Eingabe, nutze den Wert 'unbekannt'.\"\n      },\n      {\n        \"role\": \"user\", \n        \"content\": form.bericht\n      }\n    ]\n  },\n  { \"Authorization\": \"Bearer YOUR_OPENAI_API_KEY\" }\n);\n\ntry {\n  $xParsed := $parseJson($x);\n  $setVariable(\"cirs\", $xParsed);\n  $setVariable(\"anonymisierterBericht\", $xParsed);\n  $setVariable(\"bericht\", form.bericht);\n} catch (e) {\n  $log(\"Fehler bei der Verarbeitung des OpenAI-Ergebnisses: \" & e);\n}\n$refresh();\n\n)"
                     },
                     {
                         "widget": "button",
@@ -91,6 +91,7 @@
                                 "War ein Medizinprodukt beteiligt": {
 
                                 },
+                                "Medizinprodukt": {},
                                 "Fallbeschreibung": {
 
                                 },
@@ -108,7 +109,8 @@
                                 },
                                 "Ihre Berufserfahrung": {
 
-                                }
+                                },
+                                "Name-Ersatz": {}
                             }
                         }
                     },
