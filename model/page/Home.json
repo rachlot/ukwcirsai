@@ -42,7 +42,7 @@
                                     "title": "Bericht"
                                 },
                                 "Medizinprodukt": {
-                                    "widget": "text",
+                                    "widget": "button",
                                     "style": {
                                         "width": "600px"
                                     },
