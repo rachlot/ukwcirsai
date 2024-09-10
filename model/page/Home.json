@@ -39,17 +39,10 @@
                                     "required": false,
                                     "title": "Bericht"
                                 },
-                                "Medizinprodukt": {
-                                    "widget": "text",
-                                    "style": {
-                                        "width": "600px"
-                                    },
-                                    "required": false,
-                                    "title": "Welches Medizinprodukt war beteiligt?"
-                                },
+                            
                                 "benutzerBegriff": {
                                     "widget": "select",
-                                    "title": "Welcher Begriff passt am besten?",
+                                    "title": "Welche Bezeichnung passt am besten?",
                                     "enum": ["Arzt", "Patient", "Pflegekraft", "Person"],
                                     "required": false
                                 }
