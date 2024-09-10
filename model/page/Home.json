@@ -120,7 +120,7 @@
                             "properties": {
                                 "anonymisierterBericht": {
                                     "widget": "textarea",
-                                    "expression": "anonymisierterBericht",
+                                    "expression": "variable.anonymisierterBericht",
                                     "title": "Anonymisierter Bericht",
                                     "style": {
                                         "width": "1200px",
