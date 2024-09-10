@@ -3,6 +3,5 @@
     "type": "read",
     "database": "dj/postgres",
     "arguments": null,
-    "query-pointer": "0.sql"
+    "query-pointer": "byASA.0.sql"
 }
-

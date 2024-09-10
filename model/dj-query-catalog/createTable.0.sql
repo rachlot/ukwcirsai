@@ -1,4 +1,4 @@
-create table "Ereignis" (
+  create table  "Ereignis" (
   ID serial primary key,
   "Zuständiges Fachgebiet" text,
   "Altersgruppe des Patienten" text,
@@ -8,10 +8,12 @@ create table "Ereignis" (
   "Patientenzustand" text,
   "Wichtige Begleitumstände" text,
   "War ein Medizinprodukt beteiligt" text,
+  "Medizinprodukt" text, 
   "Fallbeschreibung" text,
   "Was war besonders gut" text,
   "Was war besonders ungünstig" text,
   "Eigener Ratschlag" text,
   "Wie häufig tritt ein Ereignis dieser Art auf" text,
-  "Ihre Berufserfahrung" text
-)
+  "Ihre Berufserfahrung" text,
+  "Name-Ersatz" text
+);
