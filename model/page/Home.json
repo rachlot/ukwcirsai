@@ -44,7 +44,8 @@
                                 "benutzerBegriff": {
                                     "widget": "select",
                                     "title": "Welche Bezeichnung passt am besten?",
-                                    "enum": "Array.isArray($namensListe) && $namensListe.length > 0 ? $namensListe.concat(['Arzt', 'Patient', 'Pflegekraft', 'Person']) : ['Arzt', 'Patient', 'Pflegekraft', 'Person']",
+                                    "enum": "($namensListe && Array.isArray($namensListe) && $namensListe.length > 0) ? $namensListe.concat(['Arzt', 'Patient', 'Pflegekraft', 'Person']) : ['Arzt', 'Patient', 'Pflegekraft', 'Person']",
+
                                     "required": false
                                 }
                             }
