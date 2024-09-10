@@ -26,9 +26,9 @@
                     {
                         "text": "Analysieren",
                         "expression": "{\n  \"bericht\": variable.bericht\n}",
-                      "print": "(\n\n$x := $curl(\"POST\", \"https://api.openai.com/v1/chat/completions\", {\n    \"model\": \"gpt-4o-mini\",\n    \"response_format\": { \"type\": \"json_object\" },\n    \"messages\": [\n      {\n        \"role\": \"system\",\n        \"content\": \"Deine Aufgabe ist es, einen CIRS-Bericht zu anonymisieren und ein JSON Objekt zu übersetzen. Nutze dazu lediglich die Informationen der Eingabe. Fehlt eine Information in der Eingabe, nutze den Wert 'unbekannt'. Füge die folgenden felder hinzu:\\n\\n\" &\n          \"Zuständiges Fachgebiet\\n\" &\n          \"Wo ist das Ereignis passiert\\n\" &\n          \"G\\n\" &\n          \"Tag des Ereignisses (Wochentag oder Wochenende)\\n\" &\n          \"Versorgungsart (Routinebetrieb oder Notfall)\\n\" &\n          \"ASA-Klassifizierung\\n\" &\n          \"Patientenzustand\\n\" &\n          \"Wichtige Begleitumstände\\n\" &\n          \"War ein Medizinprodukt beteiligt\\n\" &\n          \"Welches Medizinprodukt war beteiligt\\n\" &\n          \"Fallbeschreibung\\n\" &\n          \"Was war besonders gut\\n\" &\n          \"Was war besonders ungünstig\\n\" &\n          \"Wie häufig tritt ein Ereignis dieser Art auf\\n\"\n      },\n      {\n        \"role\": \"user\",\n        \"content\": form.bericht\n      }\n    ]\n }, {\"Authorization\": \"openai\"}).choices[0].message.content;\n\n$setVariable(\"cirs\", $parseJson($x));\n$setVariable(\"bericht\", form.bericht);\n$refresh()\n\n)",
-                       "widget": "button", 
-                            "schema": {
+                        "print": "(\n\n$x := $curl(\"POST\", \"https://api.openai.com/v1/chat/completions\", {\n    \"model\": \"gpt-4o-mini\",\n    \"response_format\": { \"type\": \"json_object\" },\n    \"messages\": [\n      {\n        \"role\": \"system\",\n        \"content\": \"Deine Aufgabe ist es, einen CIRS-Bericht zu anonymisieren und in ein JSON-Objekt zu übersetzen. Fehlt eine Information in der Eingabe, nutze den Wert 'unbekannt'.\"\n      },\n      {\n        \"role\": \"user\",\n        \"content\": form.bericht\n      }\n    ]\n }, {\"Authorization\": \"openai\"}).choices[0].message.content;\n\n$setVariable(\"cirs\", $parseJson($x));\n$setVariable(\"anonymisierterBericht\", $x);  // Setze den anonymisierten Bericht hier\n$setVariable(\"bericht\", form.bericht);\n$refresh();\n\n)",
+                        "widget": "button", 
+                        "schema": {
                             "type": "object",
                             "properties": {
                                 "bericht": {
@@ -39,7 +39,6 @@
                                     "required": false,
                                     "title": "Bericht"
                                 },
-                            
                                 "benutzerBegriff": {
                                     "widget": "select",
                                     "title": "Welche Bezeichnung passt am besten?",
@@ -58,49 +57,21 @@
                         "schema": {
                             "type": "object",
                             "properties": {
-                                "Zuständiges Fachgebiet": {
-
-                                },
-                                "Altersgruppe des Patienten": {
-
-                                },
-                                "Wo ist das Ereignis passiert": {
-
-                                },
-                                "Welche Versorgungsart": {
-
-                                },
-                                "ASA-Klassifizierung": {
-
-                                },
-                                "Patientenzustand": {
-
-                                },
-                                "Wichtige Begleitumstände": {
-
-                                },
-                                "War ein Medizinprodukt beteiligt": {
-
-                                },
+                                "Zuständiges Fachgebiet": {},
+                                "Altersgruppe des Patienten": {},
+                                "Wo ist das Ereignis passiert": {},
+                                "Welche Versorgungsart": {},
+                                "ASA-Klassifizierung": {},
+                                "Patientenzustand": {},
+                                "Wichtige Begleitumstände": {},
+                                "War ein Medizinprodukt beteiligt": {},
                                 "Medizinprodukt": {},
-                                "Fallbeschreibung": {
-
-                                },
-                                "Was war besonders gut": {
-
-                                },
-                                "Was war besonders ungünstig": {
-
-                                },
-                                "Eigener Ratschlag": {
-
-                                },
-                                "Wie häufig tritt ein Ereignis dieser Art auf": {
-
-                                },
-                                "Ihre Berufserfahrung": {
-
-                                },
+                                "Fallbeschreibung": {},
+                                "Was war besonders gut": {},
+                                "Was war besonders ungünstig": {},
+                                "Eigener Ratschlag": {},
+                                "Wie häufig tritt ein Ereignis dieser Art auf": {},
+                                "Ihre Berufserfahrung": {},
                                 "Name-Ersatz": {}
                             }
                         }
@@ -112,14 +83,14 @@
                     {
                         "widget": "variable",  
                         "value": {
-                            "anonymisierterBericht": ""
+                            "anonymisierterBericht": ""  
                         },
                         "schema": {
                             "type": "object",
                             "properties": {
                                 "anonymisierterBericht": {
                                     "widget": "textarea",
-                                    "expression": "variable.anonymisierterBericht",
+                                    "expression": "variable.anonymisierterBericht", 
                                     "title": "Anonymisierter Bericht",
                                     "style": {
                                         "width": "1200px",
@@ -129,7 +100,6 @@
                             }
                         }
                     }
-                    
                 ]
             }
         ]
