@@ -26,7 +26,7 @@
                     {
                         "text": "Analysieren",
                         "expression": "{\n  \"bericht\": variable.bericht\n}",
-                        "print": "(\n\n$namensListe := $match(variable.bericht, /\\b[A-Z][a-z]+\\b/g);\n\n$x := $curl(\"POST\", \"https://api.openai.com/v1/chat/completions\", {\n    \"model\": \"gpt-4o-mini\",\n    \"response_format\": { \"type\": \"json_object\" },\n    \"messages\": [\n      {\n        \"role\": \"system\",\n        \"content\": \"Deine Aufgabe ist es, einen CIRS-Bericht zu anonymisieren und anschließend in einen lesbaren Fließtext sowie in ein JSON Objekt zu übersetzen. Nutze dazu lediglich die Informationen der Eingabe. Fehlt eine Information in der Eingabe, nutze den Wert 'unbekannt'. Füge die folgenden Felder hinzu:\\n\\n\" &\n          \"Zuständiges Fachgebiet\\n\" &\n          \"Wo ist das Ereignis passiert\\n\" &\n          \"G\\n\" &\n          \"Tag des Ereignisses (Wochentag oder Wochenende)\\n\" &\n          \"Versorgungsart (Routinebetrieb oder Notfall)\\n\" &\n          \"ASA-Klassifizierung\\n\" &\n          \"Patientenzustand\\n\" &\n          \"Wichtige Begleitumstände\\n\" &\n          \"War ein Medizinprodukt beteiligt\\n\" &\n          \"Welches Medizinprodukt war beteiligt\\n\" &\n          \"Fallbeschreibung\\n\" &\n          \"Was war besonders gut\\n\" &\n          \"Was war besonders ungünstig\\n\" &\n          \"Wie häufig tritt ein Ereignis dieser Art auf\\n\"\n      },\n      {\n        \"role\": \"user\",\n        \"content\": form.bericht\n      }\n    ]\n }, {\"Authorization\": \"openai\"}).choices[0].message.content;\n\n$setVariable(\"cirs\", $parseJson($x));\n$setVariable(\"bericht\", form.bericht); \n$refresh();\n\n$y := $curl(\"POST\", \"https://api.openai.com/v1/chat/completions\", {\n    \"model\": \"gpt-4o-mini\",\n    \"response_format\": { \"type\": \"json_object\" },\n    \"messages\": [\n      {\n        \"role\": \"system\",\n        \"content\": \"Schreibe einen Fließtext auf Basis des anonymisierten CIRS-Berichts, der keine Namen mehr enthält.\"\n      },\n      {\n        \"role\": \"user\",\n        \"content\": form.bericht\n      }\n    ]\n }, {\"Authorization\": \"openai\"}).choices[0].message.content;\n$setVariable(\"anonymisierterBericht\", $y);\n$refresh();\n\n)",
+                        "print": "(\n\n$namensListe := Array.isArray($match(variable.bericht, /\\b[A-Z][a-z]+\\b/g)) ? $match(variable.bericht, /\\b[A-Z][a-z]+\\b/g) : [];\n\n$x := $curl(\"POST\", \"https://api.openai.com/v1/chat/completions\", {\n    \"model\": \"gpt-4o-mini\",\n    \"response_format\": { \"type\": \"json_object\" },\n    \"messages\": [\n      {\n        \"role\": \"system\",\n        \"content\": \"Deine Aufgabe ist es, einen CIRS-Bericht zu anonymisieren und anschließend in einen lesbaren Fließtext sowie in ein JSON Objekt zu übersetzen. Nutze dazu lediglich die Informationen der Eingabe. Fehlt eine Information in der Eingabe, nutze den Wert 'unbekannt'. Füge die folgenden Felder hinzu:\\n\\n\" &\n          \"Zuständiges Fachgebiet\\n\" &\n          \"Wo ist das Ereignis passiert\\n\" &\n          \"Tag des Ereignisses (Wochentag oder Wochenende)\\n\" &\n          \"Versorgungsart (Routinebetrieb oder Notfall)\\n\" &\n          \"ASA-Klassifizierung\\n\" &\n          \"Patientenzustand\\n\" &\n          \"Wichtige Begleitumstände\\n\" &\n          \"War ein Medizinprodukt beteiligt\\n\" &\n          \"Welches Medizinprodukt war beteiligt\\n\" &\n          \"Fallbeschreibung\\n\" &\n          \"Was war besonders gut\\n\" &\n          \"Was war besonders ungünstig\\n\" &\n          \"Wie häufig tritt ein Ereignis dieser Art auf\\n\"\n      },\n      {\n        \"role\": \"user\",\n        \"content\": form.bericht\n      }\n    ]\n }, {\"Authorization\": \"openai\"}).choices[0].message.content;\n\n$setVariable(\"cirs\", $parseJson($x));\n$setVariable(\"bericht\", form.bericht); \n$refresh();\n\n$y := $curl(\"POST\", \"https://api.openai.com/v1/chat/completions\", {\n    \"model\": \"gpt-4o-mini\",\n    \"response_format\": { \"type\": \"json_object\" },\n    \"messages\": [\n      {\n        \"role\": \"system\",\n        \"content\": \"Schreibe einen Fließtext auf Basis des anonymisierten CIRS-Berichts, der keine Namen mehr enthält.\"\n      },\n      {\n        \"role\": \"user\",\n        \"content\": form.bericht\n      }\n    ]\n }, {\"Authorization\": \"openai\"}).choices[0].message.content;\n$setVariable(\"anonymisierterBericht\", $y);\n$refresh();\n\n)",
 
                         "widget": "button", 
                         "schema": {
@@ -44,7 +44,7 @@
                                 "benutzerBegriff": {
                                     "widget": "select",
                                     "title": "Welche Bezeichnung passt am besten?",
-                                    "enum": "($namensListe && Array.isArray($namensListe) && $namensListe.length > 0) ? $namensListe.concat(['Arzt', 'Patient', 'Pflegekraft', 'Person']) : ['Arzt', 'Patient', 'Pflegekraft', 'Person']",
+                                    "enum": "Array.isArray($namensListe) && $namensListe.length > 0 ? $namensListe.concat(['Arzt', 'Patient', 'Pflegekraft', 'Person']) : ['Arzt', 'Patient', 'Pflegekraft', 'Person']",
 
                                     "required": false
                                 }
@@ -131,9 +131,9 @@
                             }
                         }
                     }
-                    
                 ]
             }
         ]
     }
 }
+
