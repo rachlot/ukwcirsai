@@ -30,6 +30,7 @@
                     },
                     {
                         "widget": "button",
+                        "text": "Analysieren",
                         "schema": {
                             "type": "object",
                             "properties": {
@@ -42,7 +43,7 @@
                                     "title": "Bericht"
                                 },
                                 "Medizinprodukt": {
-                                    "widget": "button",
+                                    "widget": "text",
                                     "style": {
                                         "width": "600px"
                                     },
