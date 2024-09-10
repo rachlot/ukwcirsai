@@ -110,14 +110,26 @@
                         "widget": "html"
                     },
                     {
-                        "widget": "textarea",
-                        "expression": "variable.anonymisierterBericht",
-                        "title": "Anonymisierter Bericht",
-                        "style": {
-                            "width": "1200px",
-                            "height": "300px"
+                        "widget": "variable",  
+                        "value": {
+                            "anonymisierterBericht": ""
+                        },
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "anonymisierterBericht": {
+                                    "widget": "textarea",
+                                    "expression": "variable.anonymisierterBericht",
+                                    "title": "Anonymisierter Bericht",
+                                    "style": {
+                                        "width": "1200px",
+                                        "height": "300px"
+                                    }
+                                }
+                            }
                         }
                     }
+                    
                 ]
             }
         ]
