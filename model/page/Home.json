@@ -24,7 +24,7 @@
                         "widget": "html"
                     },
                     {
-                        "widget": "create",  
+                        "widget": "variable",  <!-- Hier ist der richtige Kontext für das Input-Formular -->
                         "schema": {
                             "type": "object",
                             "properties": {
@@ -52,9 +52,23 @@
                                 }
                             }
                         },
-                        "text": "Speichern",  
-                        "expression": "variable.cirs", 
-                        "print": "$create(\"postgres\", \"Ereignis\", form)"  
+                        "value": {
+                            "bericht": "",
+                            "Medizinprodukt": "",
+                            "benutzerBegriff": ""
+                        }
+                    },
+                    {
+                        "widget": "button",
+                        "text": "Analysieren",
+                        "expression": "{\n  \"bericht\": variable.bericht\n}",
+                        "print": "(\n\n$x := $curl(\n  \"POST\", \n  \"https://api.openai.com/v1/chat/completions\",\n  {\n    \"model\": \"gpt-4o-mini\",\n    \"response_format\": { \"type\": \"json_object\" },\n    \"messages\": [\n      {\n        \"role\": \"system\", \n        \"content\": \"Deine Aufgabe ist es, den folgenden Bericht zu anonymisieren, die relevanten Felder zu extrahieren und in ein JSON-Objekt zu übersetzen. Fehlt eine Information in der Eingabe, nutze den Wert 'unbekannt'.\"\n      },\n      {\n        \"role\": \"user\", \n        \"content\": form.bericht\n      }\n    ]\n  },\n  { \"Authorization\": \"Bearer YOUR_OPENAI_API_KEY\" }\n);\n\ntry {\n  $xParsed := $parseJson($x);\n  $setVariable(\"cirs\", $xParsed);\n  $setVariable(\"anonymisierterBericht\", $xParsed);\n  $setVariable(\"bericht\", form.bericht);\n} catch (e) {\n  $log(\"Fehler bei der Verarbeitung des OpenAI-Ergebnisses: \" & e);\n}\n$refresh();\n\n)"
+                    },
+                    {
+                        "widget": "button",
+                        "text": "Speichern",
+                        "expression": "variable.cirs",
+                        "print": "$create(\"postgres\", \"Ereignis\", form)"
                     },
                     {
                         "html": "<h2 style='font-size: 1.5em; font-weight: 700; color: #333;'>Anonymisierter Bericht</h2><p style='font-size: 1.1em; color: #555;'>",
