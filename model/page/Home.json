@@ -32,7 +32,9 @@
                             "type": "object",
                             "properties": {
                                 "bericht": {
-                                    "widget": "textarea",
+                                    "widget": "voice",
+                                    "multiline": true,
+                                    "language": "de",
                                     "style": {
                                         "width": "1200px"
                                     },
