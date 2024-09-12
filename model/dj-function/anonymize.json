@@ -1,0 +1,5 @@
+{
+    "djClassName": "org.dashjoin.function.Invoke",
+    "ID": "anonymize",
+    "expression": "$curl(\"POST\", \"https://api.openai.com/v1/chat/completions\", {\n    \"model\": \"gpt-4o-mini\",\n    \"messages\": [\n      {\n        \"role\": \"system\",\n        \"content\": \"Deine Aufgabe ist es, den Bericht zu anonymisieren. Verwende auf gar keinen Fall Namen oder personenbezogene Daten\"\n      },\n      {\n        \"role\": \"user\",\n        \"content\": $\n      }\n    ]\n }, {\"Authorization\": \"openai\"}).choices[0].message.content"
+}
