@@ -1,0 +1,7 @@
+{
+    "ID": "guest@dashjoin.com",
+    "active": true,
+    "roles": [
+        "authenticated"
+    ]
+}
