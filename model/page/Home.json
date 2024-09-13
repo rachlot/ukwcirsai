@@ -111,9 +111,15 @@
                             }, 
                             "layout": {
                                 "type": "grid",
-                                "columns": 4,
-                                "rows": 3,
-                                "gutter": "10px"
+                                "columns": 1,
+                                "style": {
+                                  "width": "100%",
+                                  "box-sizing": "border-box"
+                                }
+                              },
+                              "fieldStyle": {
+                                "width": "100%",
+                                "box-sizing": "border-box"
                               }
                         }
                     },
