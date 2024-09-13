@@ -59,13 +59,9 @@
                         "widget": "button",
                         "schema": {
                             "type": "object",
-                            "fieldStyle": {
-                                "width": "48%",
-                                "display": "inline-block",
-                                "margin-right": "2%",
-                                "margin-top": "10px",
-                                "box-sizing": "border-box"
-                              },
+                            "style": {
+                              "width": "1200px"
+                            },
                             "properties": {
                                 "Zuständiges Fachgebiet": {
 
