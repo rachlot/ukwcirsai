@@ -1,0 +1,8 @@
+{
+    "ID": "personen",
+    "djClassName": "org.dashjoin.function.Invoke",
+    "expression": "(\n$x := $curl(\"POST\", \"https://api.openai.com/v1/chat/completions\", {\n    \"model\": \"gpt-4o-mini\",\n    \"response_format\": { \"type\": \"json_object\" },\n    \"messages\": [\n      {\n        \"role\": \"system\",\n        \"content\": \"Extrahiere die Namen aller beteilligten Personen as JSON array\"\n      },\n      {\n        \"role\": \"user\",\n        \"content\": $\n      }\n    ]\n }, {\"Authorization\": \"openai\"}).choices[0].message.content;\n\n$list := $parseJson($x);\n$lookup($list, $keys($list));\n)",
+    "roles": [
+        "authenticated"
+    ]
+}

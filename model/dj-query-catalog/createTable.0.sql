@@ -14,6 +14,9 @@
   "Was war besonders gut" text,
   "Was war besonders ungünstig" text,
   "Wie häufig tritt ein Ereignis dieser Art auf" text,
-  "Rolle des Berichtenden" text
+  "Rolle des Berichtenden" text,
+  "Personen" text[],
+  "Anonymisiert" text,
+  "Bericht" text
 );
   
