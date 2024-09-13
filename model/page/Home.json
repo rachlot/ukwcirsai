@@ -55,7 +55,7 @@
                         "text": "Speichern",
                         "expression": "variable.cirs",
                         "print": "$create(\"postgres\", \"Ereignis\", form)",
-                        "title": "Vorschau",
+                        "title": "Übersicht",
                         "widget": "button",
                         "schema": {
                             "type": "object",
@@ -108,7 +108,13 @@
                                 "Name-Ersatz": {
 
                                 }
-                            }
+                            }, 
+                            "layout": {
+                                "type": "grid",
+                                "columns": 4,
+                                "rows": 3,
+                                "gutter": "10px"
+                              }
                         }
                     },
                     {
