@@ -13,6 +13,9 @@
                     "backgroundColor": "#f9f9f9",
                     "fontFamily": "'Roboto', sans-serif"
                 },
+                "roles": [
+
+                ],
                 "widget": "container",
                 "children": [
                     {
@@ -59,9 +62,6 @@
                         "widget": "button",
                         "schema": {
                             "type": "object",
-                            "style": {
-                              "width": "1200px"
-                            },
                             "properties": {
                                 "Zuständiges Fachgebiet": {
 
@@ -112,7 +112,6 @@
 
                                 }
                             }
-                            
                         }
                     },
                     {
@@ -123,7 +122,7 @@
                         "value": {
                             "anonymisierterBericht": ""
                         },
-                        "text":"Speichern",
+                        "text": "Speichern",
                         "widget": "variable",
                         "schema": {
                             "type": "object",
@@ -133,12 +132,16 @@
                                     "expression": "variable.anonymisierterBericht",
                                     "title": "Anonymisierter Bericht",
                                     "style": {
-                                        "width": "1200px",
+                                        "width": "1400px",
                                         "height": "300px"
                                     }
                                 }
                             }
                         }
+                    },
+                    {
+                        "html": "",
+                        "widget": "html"
                     }
                 ]
             }
