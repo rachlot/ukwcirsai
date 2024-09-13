@@ -31,7 +31,7 @@
                         "schema": {
                             "type": "object",
                             "properties": {
-                                "bericht": {
+                                "Bericht": {
                                     "widget": "voice",
                                     "multiline": true,
                                     "language": "de",
@@ -119,6 +119,7 @@
                         "value": {
                             "anonymisierterBericht": ""
                         },
+                        "text":"Speichern",
                         "widget": "variable",
                         "schema": {
                             "type": "object",
