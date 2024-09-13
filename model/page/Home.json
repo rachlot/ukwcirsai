@@ -39,7 +39,7 @@
                                     "multiline": true,
                                     "language": "de",
                                     "style": {
-                                        "width": "1200px"
+                                        "width": "1400px"
                                     },
                                     "required": false,
                                     "title": "Bericht"
@@ -64,7 +64,9 @@
                             "type": "object",
                             "properties": {
                                 "Zuständiges Fachgebiet": {
-
+                                    "style": {
+                                        "width": "1400px"
+                                    }
                                 },
                                 "Altersgruppe des Patienten": {
 
