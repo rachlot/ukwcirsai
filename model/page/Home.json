@@ -108,19 +108,8 @@
                                 "Name-Ersatz": {
 
                                 }
-                            }, 
-                            "layout": {
-                                "type": "grid",
-                                "columns": 1,
-                                "style": {
-                                  "width": "100%",
-                                  "box-sizing": "border-box"
-                                }
-                              },
-                              "fieldStyle": {
-                                "width": "100%",
-                                "box-sizing": "border-box"
-                              }
+                            }
+                            
                         }
                     },
                     {
