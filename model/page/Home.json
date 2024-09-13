@@ -59,46 +59,47 @@
                                 "Zuständiges Fachgebiet": {
                                     "style": {
                                         "width": "1400px"
-                                    }
+                                    },
+                                    "size": 3
                                 },
                                 "Wo ist das Ereignis passiert": {
-
+                                    "size": 3
                                 },
                                 "Tag des Ereignisses": {
-
+                                    "size": 3
                                 },
                                 "Versorgungsart": {
-
+                                    "size": 3
                                 },
                                 "ASA-Klassifizierung": {
-
+                                    "size": 3
                                 },
                                 "Patientenzustand": {
-
+                                    "size": 3
                                 },
                                 "Wichtige Begleitumstände": {
-
+                                    "size": 3
                                 },
                                 "War ein Medizinprodukt beteiligt": {
-
+                                    "size": 3
                                 },
                                 "Welches Medizinprodukt war beteiligt": {
-
+                                    "size": 3
                                 },
                                 "Fallbeschreibung": {
-
+                                    "size": 3
                                 },
                                 "Was war besonders gut": {
-
+                                    "size": 3
                                 },
                                 "Was war besonders ungünstig": {
-
+                                    "size": 3
                                 },
                                 "Wie häufig tritt ein Ereignis dieser Art auf": {
-
+                                    "size": 6
                                 },
                                 "Rolle des Berichtenden": {
-
+                                    "size": 6
                                 },
                                 "Personen": {
                                     "type": "array",
@@ -107,7 +108,7 @@
                                     }
                                 },
                                 "Anonymisiert": {
-
+                                    "widget": "textarea"
                                 }
                             }
                         }
