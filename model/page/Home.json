@@ -4,114 +4,201 @@
         "widget": "page",
         "children": [
             {
-                "style": {
-                    "maxWidth": "800px",
-                    "margin": "0 auto",
-                    "padding": "20px",
-                    "borderRadius": "8px",
-                    "boxShadow": "0 4px 12px rgba(0, 0, 0, 0.1)",
-                    "backgroundColor": "#f9f9f9",
-                    "fontFamily": "'Roboto', sans-serif"
-                },
-                "roles": [
-
-                ],
                 "widget": "container",
                 "children": [
                     {
-                        "html": "<h1 style='font-size: 2.5em; font-weight: 700; color: #333;'>Vorfälle anonym berichten & helfen!</h1><p style='font-size: 1.1em; color: #555;'>Incidents, die in das CIRS (Critical Incidents Reporting System) eingetragen werden, sind <b>anonym</b> und können nicht mit der berichtenden Person in Verbindung gebracht werden.</p>",
-                        "widget": "html"
+                        "widget": "navigationButtons"
                     },
                     {
-                        "html": "<p style='font-size: 1.1em; color: #555;'>Durch das Teilen des Vorfalles können zukünftige Fälle verhindert werden!</p>",
-                        "widget": "html"
-                    },
-                    {
-                        "text": "Analysieren",
-                        "expression": "{\n  \"bericht\": variable.bericht\n}",
-                        "print": "(\n\n$x := $curl(\"POST\", \"https://api.openai.com/v1/chat/completions\", {\n    \"model\": \"gpt-4o-mini\",\n    \"response_format\": { \"type\": \"json_object\" },\n    \"messages\": [\n      {\n        \"role\": \"system\",\n        \"content\": \"Deine Aufgabe ist es, die Daten aus dem Bericht in ein JSON-Objekt zu übersetzen. Nutze dazu lediglich die Informationen der Eingabe. Fehlt eine Information in der Eingabe, nutze den Wert 'unbekannt'. Füge die folgenden Felder hinzu:\\n\\n\" &\n          \"Zuständiges Fachgebiet\\n\" &\n          \"Wo ist das Ereignis passiert\\n\" &\n          \"Tag des Ereignisses (Wochentag oder Wochenende)\\n\" &\n          \"Versorgungsart (Routinebetrieb oder Notfall)\\n\" &\n          \"ASA-Klassifizierung\\n\" &\n          \"Patientenzustand\\n\" &\n          \"Wichtige Begleitumstände\\n\" &\n          \"War ein Medizinprodukt beteiligt\\n\" &\n          \"Welches Medizinprodukt war beteiligt\\n\" &\n          \"Fallbeschreibung\\n\" &\n          \"Was war besonders gut\\n\" &\n          \"Was war besonders ungünstig\\n\" &\n          \"Wie häufig tritt ein Ereignis dieser Art auf\\n\" &\n          \"Rolle des Berichtenden\\n\"\n      },\n      {\n        \"role\": \"user\",\n        \"content\": form.bericht\n      }\n    ]\n }, {\"Authorization\": \"openai\"}).choices[0].message.content;\n\n$y := $curl(\"POST\", \"https://api.openai.com/v1/chat/completions\", {\n    \"model\": \"gpt-4o-mini\",\n    \"messages\": [\n      {\n        \"role\": \"system\",\n        \"content\": \"Deine Aufgabe ist es, den Bericht zu anonymisieren. Verwende auf gar keinen Fall Namen oder personenbezogene Daten\"\n      },\n      {\n        \"role\": \"user\",\n        \"content\": form.bericht\n      }\n    ]\n }, {\"Authorization\": \"openai\"}).choices[0].message.content;\n\n$personen := $call(\"personen\", form.bericht);\n$b := form.bericht;\n$setVariable(\"cirs\", $parseJson($x) ~> | $ | {\"Bericht\": $b, \"Anonymisiert\": $y, \"Personen\": $personen} |);\n$setVariable(\"bericht\", form.bericht);\n\n$refresh();\n\n)",
-                        "widget": "button",
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "bericht": {
-                                    "widget": "voice",
-                                    "multiline": true,
-                                    "language": "de",
-                                    "style": {
-                                        "width": "1400px"
+                        "widget": "homeContainer",
+                        "children": [
+                            {
+                                "if": "",
+                                "title": "Parent",
+                                "widget": "container",
+                                "children": [
+                                    {
+                                        "title": "Step 1",
+                                        "if": "variable.step=\"1\"",
+                                        "header": "bjklö",
+                                        "subtitle": "bvmkl,ö.ä-#",
+                                        "widget": "container",
+                                        "children": [
+                                            {
+                                                "text": "Analysieren",
+                                                "expression": "{\n  \"bericht\": variable.bericht\n}",
+                                                "print": "(\n\n$x := $curl(\"POST\", \"https://api.openai.com/v1/chat/completions\", {\n    \"model\": \"gpt-4o-mini\",\n    \"response_format\": { \"type\": \"json_object\" },\n    \"messages\": [\n      {\n        \"role\": \"system\",\n        \"content\": \"Deine Aufgabe ist es, die Daten aus dem Bericht in ein JSON-Objekt zu übersetzen. Nutze dazu lediglich die Informationen der Eingabe. Fehlt eine Information in der Eingabe, nutze den Wert 'unbekannt'. Füge die folgenden Felder hinzu:\\n\\n\" &\n          \"Zuständiges Fachgebiet\\n\" &\n          \"Wo ist das Ereignis passiert\\n\" &\n          \"Tag des Ereignisses (Wochentag oder Wochenende)\\n\" &\n          \"Versorgungsart (Routinebetrieb oder Notfall)\\n\" &\n          \"ASA-Klassifizierung\\n\" &\n          \"Patientenzustand\\n\" &\n          \"Wichtige Begleitumstände\\n\" &\n          \"War ein Medizinprodukt beteiligt\\n\" &\n          \"Welches Medizinprodukt war beteiligt\\n\" &\n          \"Fallbeschreibung\\n\" &\n          \"Was war besonders gut\\n\" &\n          \"Was war besonders ungünstig\\n\" &\n          \"Wie häufig tritt ein Ereignis dieser Art auf\\n\" &\n          \"Rolle des Berichtenden\\n\"\n      },\n      {\n        \"role\": \"user\",\n        \"content\": form.bericht\n      }\n    ]\n }, {\"Authorization\": \"openai\"}).choices[0].message.content;\n\n$y := $curl(\"POST\", \"https://api.openai.com/v1/chat/completions\", {\n    \"model\": \"gpt-4o-mini\",\n    \"messages\": [\n      {\n        \"role\": \"system\",\n        \"content\": \"Deine Aufgabe ist es, den Bericht zu anonymisieren. Verwende auf gar keinen Fall Namen oder personenbezogene Daten\"\n      },\n      {\n        \"role\": \"user\",\n        \"content\": form.bericht\n      }\n    ]\n }, {\"Authorization\": \"openai\"}).choices[0].message.content;\n\n$personen := $call(\"personen\", form.bericht);\n$b := form.bericht;\n$setVariable(\"cirs\", $parseJson($x) ~> | $ | {\"Bericht\": $b, \"Anonymisiert\": $y, \"Personen\": $personen} |);\n$setVariable(\"bericht\", form.bericht);\n\n$refresh();\n\n)",
+                                                "widget": "button",
+                                                "schema": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "bericht": {
+                                                            "widget": "voice",
+                                                            "multiline": true,
+                                                            "language": "de",
+                                                            "style": {
+                                                                "width": "1400px"
+                                                            },
+                                                            "required": false,
+                                                            "title": ""
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        ]
                                     },
-                                    "required": false,
-                                    "title": ""
-                                }
-                            }
-                        }
-                    },
-                    {
-                        "text": "Speichern",
-                        "expression": "variable.cirs",
-                        "print": "$create(\"postgres\", \"Ereignis\", form)",
-                        "title": "Übersicht",
-                        "widget": "button",
-                        "schema": {
-                            "type": "object",
-                            "properties": {
-                                "Zuständiges Fachgebiet": {
-                                    "style": {
-                                        "width": "1400px"
+                                    {
+                                        "title": "Step 2",
+                                        "if": "variable.step=\"2\"",
+                                        "widget": "container",
+                                        "children": [
+                                            {
+                                                "title": "",
+                                                "widget": "variable",
+                                                "schema": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "Zuständiges Fachgebiet": {
+                                                            "style": {
+                                                                "width": "1400px"
+                                                            }
+                                                        },
+                                                        "Versorgungsart": {
+
+                                                        },
+                                                        "ASA-Klassifizierung": {
+
+                                                        },
+                                                        "Wo ist das Ereignis passiert": {
+
+                                                        },
+                                                        "Tag des Ereignisses": {
+
+                                                        },
+                                                        "undefined": {
+                                                            "widget": "navigationButtons"
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            {
+                                                "widget": "navigationButtons"
+                                            }
+                                        ]
                                     },
-                                    "size": 3
-                                },
-                                "Wo ist das Ereignis passiert": {
-                                    "size": 3
-                                },
-                                "Tag des Ereignisses": {
-                                    "size": 3
-                                },
-                                "Versorgungsart": {
-                                    "size": 3
-                                },
-                                "ASA-Klassifizierung": {
-                                    "size": 3
-                                },
-                                "Patientenzustand": {
-                                    "size": 3
-                                },
-                                "Wichtige Begleitumstände": {
-                                    "size": 3
-                                },
-                                "War ein Medizinprodukt beteiligt": {
-                                    "size": 3
-                                },
-                                "Welches Medizinprodukt war beteiligt": {
-                                    "size": 3
-                                },
-                                "Fallbeschreibung": {
-                                    "size": 3
-                                },
-                                "Was war besonders gut": {
-                                    "size": 3
-                                },
-                                "Was war besonders ungünstig": {
-                                    "size": 3
-                                },
-                                "Wie häufig tritt ein Ereignis dieser Art auf": {
-                                    "size": 6
-                                },
-                                "Rolle des Berichtenden": {
-                                    "size": 6
-                                },
-                                "Personen": {
-                                    "type": "array",
-                                    "items": {
-                                        "type": "string"
+                                    {
+                                        "title": "Step 3",
+                                        "if": "variable.step=\"3\"",
+                                        "widget": "container",
+                                        "children": [
+                                            {
+                                                "name": "Patientenzustand"
+                                            },
+                                            {
+                                                "widget": "variable",
+                                                "schema": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "Patientenzustand": {
+
+                                                        },
+                                                        "Wichtige Begleitumstände": {
+
+                                                        },
+                                                        "War ein Medizinprodukt beteiligt": {
+                                                            "size": 6
+                                                        },
+                                                        "Welches Medizinprodukt war beteiligt": {
+                                                            "size": 6
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            {
+                                                "widget": "navigationButtons"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "title": "Step 4",
+                                        "if": "variable.step=\"4\"",
+                                        "widget": "container",
+                                        "children": [
+                                            {
+                                                "widget": "variable",
+                                                "schema": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "Was war besonders gut": {
+                                                            "size": 4
+                                                        },
+                                                        "Was war besonders ungünstig": {
+                                                            "size": 4
+                                                        },
+                                                        "Fallbeschreibung": {
+                                                            "size": 4
+                                                        },
+                                                        "Wie häufig tritt ein Ereignis dieser Art auf": {
+                                                            "size": 6
+                                                        },
+                                                        "Rolle des Berichtenden": {
+                                                            "size": 6
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            {
+                                                "widget": "navigationButtons"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "title": "Step 5",
+                                        "if": "variable.step=\"5\"",
+                                        "widget": "container",
+                                        "children": [
+                                            {
+                                                "widget": "variable",
+                                                "schema": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "Personen": {
+                                                            "type": "array",
+                                                            "items": {
+                                                                "type": "string"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            {
+                                                "widget": "navigationButtons"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "title": "Step 6",
+                                        "if": "variable.step=\"6\"",
+                                        "widget": "container",
+                                        "children": [
+                                            {
+                                                "print": "$create(\"postgres\", \"Ereignis\", form)",
+                                                "expression": "variable.cirs",
+                                                "widget": "button",
+                                                "schema": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "Anonymisiert": {
+                                                            "widget": "textarea"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        ]
                                     }
-                                },
-                                "Anonymisiert": {
-                                    "widget": "textarea"
-                                }
+                                ]
                             }
-                        }
+                        ]
                     }
                 ]
             }

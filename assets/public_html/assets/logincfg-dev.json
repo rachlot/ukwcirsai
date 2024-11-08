@@ -1,0 +1,60 @@
+{
+    "signInTabText": "My Dashjoin",
+    "signInCardTitleText": "Sign In",
+    "emailText": "E-Mail or Username",
+    "registerTabText": "New User",
+    "resetPasswordTabText": "Reset My Password",
+    "resetPasswordInputText": "Enter your E-Mail. Password reset instructions will be sent",
+    "emailLoginEnabled": true,
+    "registrationEnabled": true,
+    "guestEnabled": false,
+    "guestLoginEnabled": true,
+    "providers": "google",
+
+    "backgroundImage": "https://source.unsplash.com/random/?wallpaper",
+    "className": "dashjoin",
+
+    "openIdConfigs": [
+        {
+            "domain": "example.com",
+            "name": "Sign in to Okta",
+            "config": {
+                "issuer": "https://dev-15247203.okta.com",
+                "clientId": "0oa1i1du5fP3Fdfoc5d7",
+                "redirectUri": "http://localhost:8080",
+                "requireHttps": false,
+                "scope": "openid profile groups email",
+                "requestAccessToken": false,
+                "strictDiscoveryDocumentValidation": false,
+                "postLogoutRedirectUri": "http://localhost:8080"
+            }
+        },
+        {
+            "domain": "example.com",
+            "name": "Sign in to Auth0",
+            "config": {
+                "issuer": "https://dev-dj01.eu.auth0.com",
+                "clientId": "qNoPJsJXUPqOL7MovV4PLFROeSWASR7x",
+                "redirectUri": "http://localhost:8080",
+                "requireHttps": false,
+                "scope": "openid profile groups email",
+                "requestAccessToken": false,
+                "strictDiscoveryDocumentValidation": false,
+                "customEndSessionUri": "https://dev-dj01.eu.auth0.com/v2/logout?redirectUri=http://localhost:8080"
+            }
+        },
+        {
+            "domain": "dashjoin.com",
+            "name": "Microsoft Entra ID",
+            "logo": "/favicon.ico",
+            "config": {
+                "issuer": "https://login.microsoftonline.com/4339ef08-a006-45bf-a0d5-c7b70fcf75d9/v2.0",
+                "clientId": "8c785cc3-afaa-4af4-994a-9f89529d5cc6",
+                "redirectUri": "http://localhost:8080",
+                "scope": "openid profile email",
+                "requestAccessToken": false,
+                "strictDiscoveryDocumentValidation": false
+            }
+        }
+    ]
+}

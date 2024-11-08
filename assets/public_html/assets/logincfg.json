@@ -1,0 +1,11 @@
+{
+    "signInTabText": "My Dashjoin",
+    "emailLoginEnabled": true,
+    "passwordResetEnabled": true,
+    "registrationEnabled": true,
+    "guestLoginEnabled": false,
+    "providers": "google",
+    "backgroundImage": "assets/loginbg.jpg",
+    "className": "dashjoin",
+    "openIdConfigs": []
+}
