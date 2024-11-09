@@ -7,9 +7,6 @@
                 "widget": "container",
                 "children": [
                     {
-                        "widget": "navigationButtons"
-                    },
-                    {
                         "widget": "homeContainer",
                         "children": [
                             {
@@ -19,7 +16,7 @@
                                 "children": [
                                     {
                                         "title": "Step 1",
-                                        "if": "variable.step=\"1\"",
+                                        "if": "variable.step = \"1\"",
                                         "header": "bjklö",
                                         "subtitle": "bvmkl,ö.ä-#",
                                         "widget": "container",
@@ -44,12 +41,15 @@
                                                         }
                                                     }
                                                 }
+                                            },
+                                            {
+                                                "widget": "navigationButtons"
                                             }
                                         ]
                                     },
                                     {
                                         "title": "Step 2",
-                                        "if": "variable.step=\"2\"",
+                                        "if": "variable.step=\"1\"",
                                         "widget": "container",
                                         "children": [
                                             {
