@@ -1,0 +1,12 @@
+{
+    "firebaseLogin": true,
+    "__NO__FIREBASE_AUTH_EMULATOR": "http://localhost:9099",
+    "apiKey": "AIzaSyDpbQCsXdSAUwIWmrjHgz-8n5QU-n5GOAs",
+    "authDomain": "auth.dashjoin.com",
+    "databaseURL": "https://djfire-1946d.firebaseio.com",
+    "projectId": "djfire-1946d",
+    "storageBucket": "djfire-1946d.appspot.com",
+    "messagingSenderId": "678880785964",
+    "appId": "1:678880785964:web:f3d1e84bbc136a10634389",
+    "measurementId": "G-JXZJDGTEFZ"
+}

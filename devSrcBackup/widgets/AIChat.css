@@ -1,0 +1,35 @@
+.dj-aichat.nluxc-root.nluxc-theme-nova {
+    /* Fix dark mode text color in welcome message */
+    --nluxc-text-color: #000;
+
+    /*
+    --nluxc-button-background-color: #1fdb6f;
+    --nluxc-button-border-color: #1fdb6a;
+
+    --nluxc-button-active-background-color: #26f87d;
+    --nluxc-button-active-border-color: #26f87d;
+
+    --nluxc-button-disabled-background-color: #719f84;
+    --nluxc-button-disabled-border-color: #719f84;
+
+    --nluxc-message-sent-background-color: #1fdb6a;
+    --nluxc-message-sent-border-color: #1fdb6a;
+
+    --nluxc-message-sent-active-background-color: #26f87d;
+    --nluxc-message-sent-active-border-color: #26f87d;
+
+    --nluxc-input-border-color: #b6e1cc;
+    --nluxc-input-active-border-color: #b6e1cc;
+    --nluxc-border-radius-xs: 0;
+    --nluxc-border-radius-s: 0;
+    --nluxc-border-radius: 0;
+    --nluxc-border-radius-m: 0;
+    --nluxc-border-radius-l: 0;
+    */
+}
+
+/* Allow Cut+Paste from chat texts */
+.nluxc-root {
+    -webkit-user-select: auto !important; /* Safari */
+    user-select: auto !important; /* Standard syntax */
+}
